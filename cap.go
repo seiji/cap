@@ -63,8 +63,7 @@ func capDeploy(c *cli.Context) {
 	var rev string
 	var err error
 
-	// rev, err = updateSrc(branch)
-	rev = "94b099ec9252b2455469e1e9f433dd611a2ed31a"
+	rev, err = updateSrc(branch)
 	src, err := syncSrc()
 	defer os.RemoveAll(src)
 	if err != nil {
@@ -92,7 +91,7 @@ func capDeploy(c *cli.Context) {
 			if conn.Err != nil {
 				conn.Err = nil
 				LogInfo(s.Host, "Roleback\n")
-				// conn.Exec("rm", "-Rf", release)
+				conn.Exec("rm", "-Rf", release)
 			}
 		}(v)
 	}
